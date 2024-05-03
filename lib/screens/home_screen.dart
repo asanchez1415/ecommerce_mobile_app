@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
     productsProvider.fetchProducts();
     super.initState();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final Utils utils = Utils(context);
@@ -88,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         crossAxisCount: 2,
-        childAspectRatio: size.width / (size.height * 0.59),
+        childAspectRatio: size.width / (size.height * 0.65),
         children: List.generate(
             allProducts.length < 4
                 ? allProducts.length // length 3
