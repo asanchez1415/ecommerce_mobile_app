@@ -42,4 +42,15 @@ class ProductsProvider with ChangeNotifier {
         .toList();
     return _categoryList;
   }
+
+  List<ProductModel> searchQuery(String searchText) {
+    List<ProductModel> _searchList = _productsList
+        .where(
+          (element) => element.title.toLowerCase().contains(
+                searchText.toLowerCase(),
+              ),
+        )
+        .toList();
+    return _searchList;
+  }
 }
