@@ -1,10 +1,15 @@
 import 'package:ecommerce_mobile_app/widgets/price_widget.dart';
 import 'package:ecommerce_mobile_app/widgets/text_widget.dart';
+import 'package:ecommerce_mobile_app/consts/firebase_consts.dart';
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../providers/cart_provider.dart';
 import '../models/products_model.dart';
+import '../services/global_methods.dart';
 import '../services/utils.dart';
 
 class ProductsWidget extends StatefulWidget {
@@ -31,6 +36,9 @@ class _ProductsWidgetState extends State<ProductsWidget> {
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
+    final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    bool? _isInCart = cartProvider.getCartItems.containsKey(productModel.id);
     final _quantityTextController = TextEditingController();
     _quantityTextController.text = '1';
     final product = Provider.of<ProductModel>(context);
@@ -123,26 +131,47 @@ class _ProductsWidgetState extends State<ProductsWidget> {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: _isInCart
+                      ? null
+                      : () async {
+                          // if (_isInCart) {
+                          //   return;
+                          // }
+                          final User? user = authInstance.currentUser;
+
+                          if (user == null) {
+                            GlobalMethods.errorDialog(
+                                subtitle: 'No user found, Please login first',
+                                context: context);
+                            return;
+                          }
+                          await GlobalMethods.addToCart(
+                              productId: productModel.id,
+                              quantity: int.parse(_quantityTextController.text),
+                              context: context);
+                          await cartProvider.fetchCart();
+                          // cartProvider.addProductsToCart(
+                          //     productId: productModel.id,
+                          //     quantity: int.parse(_quantityTextController.text));
+                        },
                   child: TextWidget(
-                    text: 'Add to cart',
+                    text: _isInCart ? 'In cart' : 'Add to cart',
                     maxLines: 1,
                     color: Colors.white,
                     textSize: 20,
                   ),
                   style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.grey[800]),
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12.0),
-                          bottomRight: Radius.circular(12.0),
+                      backgroundColor: MaterialStateProperty.all(
+                          Theme.of(context).cardColor),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
+                      )),
                 ),
               ),
             ],

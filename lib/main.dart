@@ -1,5 +1,7 @@
 import 'package:ecommerce_mobile_app/firebase_options.dart';
 import 'package:ecommerce_mobile_app/providers/products_provider.dart';
+import 'package:ecommerce_mobile_app/providers/cart_provider.dart';
+
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'routes/app_routes.dart';
@@ -48,6 +50,7 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(
               create: (_) => ProductsProvider(),
             ),
+            ChangeNotifierProvider(create: (_) => CartProvider()),
           ],
           child: MaterialApp(
             darkTheme: ThemeData.dark(),
