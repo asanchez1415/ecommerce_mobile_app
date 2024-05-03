@@ -8,6 +8,8 @@ class Constss {
       price: 0.99,
       imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
       productCategoryName: 'Fruits',
+      model: 'aaa',
+      quantity: 10,
     ),
     ProductModel(
       id: 'Avocado',
@@ -15,6 +17,8 @@ class Constss {
       price: 0.88,
       imageUrl: 'https://i.ibb.co/9VKXw5L/Avocat.png',
       productCategoryName: 'Fruits',
+      model: 'aaa',
+      quantity: 10,
     ),
     ProductModel(
       id: 'Black grapes',
@@ -22,6 +26,8 @@ class Constss {
       price: 1.22,
       imageUrl: 'https://i.ibb.co/c6w5zrC/Black-Grapes-PNG-Photos.png',
       productCategoryName: 'Fruits',
+      model: 'aaa',
+      quantity: 10,
     ),
     ProductModel(
       id: 'Fresh_green_grape',
@@ -29,6 +35,8 @@ class Constss {
       price: 1.5,
       imageUrl: 'https://i.ibb.co/HKx2bsp/Fresh-green-grape.png',
       productCategoryName: 'Fruits',
+      model: 'aaa',
+      quantity: 10,
     ),
   ];
 }

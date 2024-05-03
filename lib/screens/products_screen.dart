@@ -34,6 +34,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     productsProvider.fetchProducts();
     super.initState();
   }
+
   List<ProductModel> listProdcutSearch = [];
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(
+          child: const Icon(
             IconlyLight.arrowLeft2,
             color: Colors.white,
           ),
@@ -75,8 +76,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 onChanged: (value) {
                   setState(() {
                     listProdcutSearch = productProviders.searchQuery(value);
-                  }
-                  );
+                  });
                 },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -90,7 +90,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         const BorderSide(color: Colors.greenAccent, width: 1),
                   ),
                   hintText: "What's in your mind",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   prefixIcon: const Icon(Icons.search, color: Colors.white),
                   suffix: IconButton(
                     onPressed: () {

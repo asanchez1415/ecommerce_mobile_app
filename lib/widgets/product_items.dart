@@ -54,9 +54,9 @@ class _ProductsWidgetState extends State<ProductsWidget> {
             children: [
               FancyShimmerImage(
                 imageUrl: product.imageUrl,
-                height: size.width * 0.21,
-                width: size.width * 0.2,
-                boxFit: BoxFit.fill,
+                height: size.width * 0.26,
+                width: size.width * 0.25,
+                boxFit: BoxFit.contain,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -67,6 +67,20 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                       text: product.title,
                       color: Colors.white,
                       textSize: 20,
+                      isTitle: true,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                      text: product.model,
+                      color: Colors.white,
+                      textSize: 18,
                       isTitle: true,
                     ),
                   ],
@@ -107,7 +121,7 @@ class _ProductsWidgetState extends State<ProductsWidget> {
                               child: TextFormField(
                                 controller: _quantityTextController,
                                 key: const ValueKey('10'),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.white, fontSize: 18),
                                 keyboardType: TextInputType.number,
                                 maxLines: 1,
