@@ -6,6 +6,7 @@ import '../models/products_model.dart';
 import '../services/utils.dart';
 import '../widgets/product_items.dart';
 import '../widgets/text_widget.dart';
+import '../widgets/empty_prod_widget.dart';
 import 'package:provider/provider.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -33,7 +34,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
     productsProvider.fetchProducts();
     super.initState();
   }
-
+  List<ProductModel> listProdcutSearch = [];
   @override
   Widget build(BuildContext context) {
     Size size = Utils(context).getScreenSize;
@@ -72,7 +73,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 focusNode: _searchTextFocusNode,
                 controller: _searchTextController,
                 onChanged: (value) {
-                  setState(() {});
+                  setState(() {
+                    listProdcutSearch = productProviders.searchQuery(value);
+                  }
+                  );
                 },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -104,20 +108,28 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ),
             ),
           ),
-          GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            padding: EdgeInsets.zero,
-            // crossAxisSpacing: 10,
-            childAspectRatio: size.width / (size.height * 0.59),
-            children: List.generate(allProducts.length, (index) {
-              return ChangeNotifierProvider.value(
-                value: allProducts[index],
-                child: const ProductsWidget(),
-              );
-            }),
-          ),
+          _searchTextController!.text.isNotEmpty && listProdcutSearch.isEmpty
+              ? const EmptyProdWidget(
+                  text: 'No products found, please try another keyword')
+              : GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  padding: EdgeInsets.zero,
+                  // crossAxisSpacing: 10,
+                  childAspectRatio: size.width / (size.height * 0.59),
+                  children: List.generate(
+                      _searchTextController!.text.isNotEmpty
+                          ? listProdcutSearch.length
+                          : allProducts.length, (index) {
+                    return ChangeNotifierProvider.value(
+                      value: _searchTextController!.text.isNotEmpty
+                          ? listProdcutSearch[index]
+                          : allProducts[index],
+                      child: const ProductsWidget(),
+                    );
+                  }),
+                )
         ]),
       ),
     );
