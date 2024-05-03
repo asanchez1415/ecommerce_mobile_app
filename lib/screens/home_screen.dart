@@ -22,6 +22,15 @@ class _HomeScreenState extends State<HomeScreen> {
     'assets/images/categories/suvi.jpg',
     'assets/images/categories/suvi.jpg'
   ];
+
+  @override
+  void initState() {
+    final productsProvider =
+        Provider.of<ProductsProvider>(context, listen: false);
+    productsProvider.fetchProducts();
+    super.initState();
+  }
+  
   @override
   Widget build(BuildContext context) {
     final Utils utils = Utils(context);
