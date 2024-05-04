@@ -7,3 +7,4 @@ export 'btm_bar.dart';
 export 'auth/login.dart';
 export 'products_screen.dart';
 export 'auth/register.dart';
+export 'categorie_screen.dart';

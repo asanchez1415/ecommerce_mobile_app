@@ -1,3 +1,4 @@
+import 'package:ecommerce_mobile_app/screens/product_screen.dart';
 import 'package:ecommerce_mobile_app/widgets/price_widget.dart';
 import 'package:ecommerce_mobile_app/widgets/text_widget.dart';
 import 'package:ecommerce_mobile_app/consts/firebase_consts.dart';
@@ -48,7 +49,14 @@ class _ProductsWidgetState extends State<ProductsWidget> {
         borderRadius: BorderRadius.circular(12),
         color: Colors.black,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProductScreen(product: product),
+              ),
+            );
+          },
           borderRadius: BorderRadius.circular(12),
           child: Column(
             children: [

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class CategoriesScreen extends StatelessWidget {
   CategoriesScreen({Key? key}) : super(key: key);
 
-  List<Color> gridColors = [
+  final List<Color> gridColors = [
     const Color(0xff53B175),
     const Color(0xffF8A44C),
     const Color(0xffF7A593),
@@ -14,7 +14,7 @@ class CategoriesScreen extends StatelessWidget {
     const Color(0xffB7DFF5),
   ];
 
-  List<Map<String, dynamic>> catInfo = [
+  final List<Map<String, dynamic>> catInfo = [
     {
       'imgPath': 'assets/images/categories/mini_small_car.jpg',
       'catText': 'Mini/small',

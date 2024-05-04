@@ -40,65 +40,69 @@ class _HomeScreenState extends State<HomeScreen> {
     List<ProductModel> allProducts = productProviders.getProducts;
 
     return Scaffold(
-        body: SingleChildScrollView(
-            child: Column(children: [
-      SizedBox(
-        height: size.height * 0.33,
-        child: Swiper(
-          itemBuilder: (BuildContext context, int index) {
-            return Image.asset(
-              _offerImages[index],
-              fit: BoxFit.fill,
-            );
-          },
-          autoplay: true,
-          itemCount: _offerImages.length,
-          pagination: const SwiperPagination(
-              alignment: Alignment.bottomCenter,
-              builder: DotSwiperPaginationBuilder(
-                  color: Colors.white, activeColor: Colors.red)),
-        ),
-      ),
-
-      TextWidget(
-        text: 'Our products',
-        color: Colors.white,
-        textSize: 22,
-        isTitle: true,
-      ),
-      // const Spacer(),
-      TextButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) =>
-                  AppRoutes.routes['ProductsScreen']!(context),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: size.height * 0.33,
+              child: Swiper(
+                itemBuilder: (BuildContext context, int index) {
+                  return Image.asset(
+                    _offerImages[index],
+                    fit: BoxFit.fill,
+                  );
+                },
+                autoplay: true,
+                itemCount: _offerImages.length,
+                pagination: const SwiperPagination(
+                    alignment: Alignment.bottomCenter,
+                    builder: DotSwiperPaginationBuilder(
+                        color: Colors.white, activeColor: Colors.red)),
+              ),
             ),
-          );
-        },
-        child: TextWidget(
-          text: 'Browse all',
-          maxLines: 1,
-          color: Colors.blue,
-          textSize: 20,
+
+            TextWidget(
+              text: 'Our products',
+              color: Colors.white,
+              textSize: 22,
+              isTitle: true,
+            ),
+            // const Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        AppRoutes.routes['ProductsScreen']!(context),
+                  ),
+                );
+              },
+              child: TextWidget(
+                text: 'Browse all',
+                maxLines: 1,
+                color: Colors.blue,
+                textSize: 20,
+              ),
+            ),
+            GridView.count(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisCount: 2,
+              childAspectRatio: size.width / (size.height * 0.65),
+              children: List.generate(
+                  allProducts.length < 4
+                      ? allProducts.length // length 3
+                      : 4, (index) {
+                return ChangeNotifierProvider.value(
+                  value: allProducts[index],
+                  child: const ProductsWidget(),
+                );
+              }),
+            ),
+          ],
         ),
       ),
-      GridView.count(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        crossAxisCount: 2,
-        childAspectRatio: size.width / (size.height * 0.65),
-        children: List.generate(
-            allProducts.length < 4
-                ? allProducts.length // length 3
-                : 4, (index) {
-          return ChangeNotifierProvider.value(
-            value: allProducts[index],
-            child: const ProductsWidget(),
-          );
-        }),
-      )
-    ])));
+    );
   }
 }

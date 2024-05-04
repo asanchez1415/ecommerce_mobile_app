@@ -1,3 +1,5 @@
+import 'package:ecommerce_mobile_app/routes/app_routes.dart';
+import 'package:ecommerce_mobile_app/screens/screens.dart';
 import 'package:ecommerce_mobile_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +15,19 @@ class CategoriesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Size size = MediaQuery.of(context).size;
-    double _screenWidth = MediaQuery.of(context).size.width;
-    final Color color = Colors.white;
+    double screenWidth = MediaQuery.of(context).size.width;
+    Color color = Colors.white;
+
     return InkWell(
       onTap: () {
-        print('Category pressed');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CategorieScreen(
+              catText: catText,
+            ),
+          ),
+        );
       },
       child: Container(
         // height: _screenWidth * 0.6,
@@ -33,8 +43,8 @@ class CategoriesWidget extends StatelessWidget {
             Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           // Container for the image
           Container(
-            height: _screenWidth * 0.3,
-            width: _screenWidth * 0.3,
+            height: screenWidth * 0.3,
+            width: screenWidth * 0.3,
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: AssetImage(

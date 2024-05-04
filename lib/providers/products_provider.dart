@@ -34,6 +34,33 @@ class ProductsProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> fetchProductsCategoryFilter(productCategoryName) async {
+    await FirebaseFirestore.instance
+        .collection('products')
+        .where("productCategoryName", isEqualTo: productCategoryName)
+        .get()
+        .then((QuerySnapshot productSnapshot) {
+      _productsList = [];
+      // _productsList.clear();
+      productSnapshot.docs.forEach((element) {
+        _productsList.insert(
+            0,
+            ProductModel(
+              id: element.get('id'),
+              title: element.get('title'),
+              model: element.get('model'),
+              imageUrl: element.get('imageUrl'),
+              productCategoryName: element.get('productCategoryName'),
+              price: double.parse(
+                element.get('price'),
+              ),
+              quantity: element.get('quantity'),
+            ));
+      });
+    });
+    notifyListeners();
+  }
+
   ProductModel findProdById(String productId) {
     return _productsList.firstWhere((element) => element.id == productId);
   }
