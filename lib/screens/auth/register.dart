@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ecommerce_mobile_app/routes/app_routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -60,8 +61,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'createdAt': Timestamp.now(),
         });
         print('Successfully registered');
+        Fluttertoast.showToast(
+          msg: 'Successfully registered',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey.shade600,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
+        
       } catch (error) {
         print('Error registering user: $error');
+        Fluttertoast.showToast(
+          msg: 'Error registering user',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey.shade600,
+          textColor: Colors.red,
+          fontSize: 16.0,
+        );
       }
     }
   }

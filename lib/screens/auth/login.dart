@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../../widgets/auth_button.dart';
 import '../../widgets/text_widget.dart';
 import '../../consts/firebase_consts.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -41,6 +42,15 @@ class _LoginScreenState extends State<LoginScreen> {
           builder: (context) => AppRoutes.routes['BottomBar']!(context),
         ));
         print('Succefully logged in');
+        Fluttertoast.showToast(
+          msg: 'Succefully logged in',
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey.shade600,
+          textColor: Colors.white,
+          fontSize: 16.0,
+        );
       } catch (error) {
         String errorMessage = 'An error occurred';
         if (error is FirebaseException) {
