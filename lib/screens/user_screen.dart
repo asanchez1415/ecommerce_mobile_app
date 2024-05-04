@@ -6,6 +6,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import '../../consts/firebase_consts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ecommerce_mobile_app/services/global_methods.dart';
 
 class UserScreen extends StatefulWidget {
   const UserScreen({Key? key}) : super(key: key);
@@ -70,7 +71,6 @@ class _UserScreenState extends State<UserScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
                 RichText(
                   text: TextSpan(
                     text: 'Hi,  ',
@@ -131,29 +131,28 @@ class _UserScreenState extends State<UserScreen> {
                 _listTiles(
                   title: 'Logout',
                   icon: IconlyLight.logout,
-                  onPressed: () async {
-                    await _showLogoutDialog();
+                  onPressed: () {
+                    GlobalMethods.warningDialog(
+                        title: 'Sign out',
+                        subtitle: 'Do you wanna sign out?',
+                        fct: () async {
+                          await authInstance.signOut();
+                            // Remove the BottomBar
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                AppRoutes.routes['LoginScreen']!(context),
+                          ));
+                        },
+                        context: context);
                   },
                   color: Colors.white,
                 ),
-                _listTiles(
-                  title:"" 
-                ),
-                _listTiles(
-                  title:"" 
-                ),
-                _listTiles(
-                  title:"" 
-                ),
-                _listTiles(
-                  title:"" 
-                ),
-                _listTiles(
-                  title:"" 
-                ),
-                _listTiles(
-                  title:"" 
-                ),
+                _listTiles(title: ""),
+                _listTiles(title: ""),
+                _listTiles(title: ""),
+                _listTiles(title: ""),
+                _listTiles(title: ""),
+                _listTiles(title: ""),
               ],
             ),
           ),
@@ -206,7 +205,7 @@ class _UserScreenState extends State<UserScreen> {
     try {
       await FirebaseAuth.instance.signOut();
       Navigator.pop(context);
-      Navigator.push(
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => AppRoutes.routes['LoginScreen']!(context),
@@ -278,5 +277,3 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 }
-
-
