@@ -51,146 +51,136 @@ class _ProductsWidgetState extends State<ProductsWidget> {
           onTap: () {},
           borderRadius: BorderRadius.circular(12),
           child: Column(
-  children: [
-    Expanded( // Add Expanded here
-      child: FancyShimmerImage(
-        imageUrl: product.imageUrl,
-        height: size.width * 0.26,
-        width: size.width * 0.25,
-        boxFit: BoxFit.contain,
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextWidget(
-            text: product.title,
-            color: Colors.white,
-            textSize: 20,
-            isTitle: true,
-          ),
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          TextWidget(
-            text: product.model,
-            color: Colors.white,
-            textSize: 18,
-            isTitle: true,
-          ),
-        ],
-      ),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 3,
-            child: PriceWidget(
-              price: product.price,
-              textPrice: _quantityTextController.text,
-            ),
-          ),
-          Flexible(
-            child: Row(
-              children: [
-                Flexible(
-                  flex: 6,
-                  child: FittedBox(
-                    child: TextWidget(
-                      text: 'Piece',
+            children: [
+              Expanded(
+                // Add Expanded here
+                child: FancyShimmerImage(
+                  imageUrl: product.imageUrl,
+                  height: size.width * 0.28,
+                  width: size.width * 0.27,
+                  boxFit: BoxFit.fitWidth,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                      text: product.title,
                       color: Colors.white,
                       textSize: 20,
                       isTitle: true,
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  flex: 2,
-                  child: TextFormField(
-                    controller: _quantityTextController,
-                    key: const ValueKey('10'),
-                    style: const TextStyle(
-                        color: Colors.white, fontSize: 18),
-                    keyboardType: TextInputType.number,
-                    maxLines: 1,
-                    enabled: true,
-                    onChanged: (valueee) {
-                      setState(() {});
-                    },
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(
-                        RegExp('[0-9.]'),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
-      ),
-    ),
-    const Spacer(),
-    SizedBox(
-      width: double.infinity,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom:8.1),
-        child: TextButton(
-          onPressed: _isInCart
-              ? null
-              : () async {
-                  final User? user = authInstance.currentUser;
-
-                  if (user == null) {
-                    GlobalMethods.errorDialog(
-                        subtitle: 'No user found, Please login first',
-                        context: context);
-                    return;
-                  }
-                  await GlobalMethods.addToCart(
-                      productId: productModel.id,
-                      quantity:
-                          int.parse(_quantityTextController.text),
-                      context: context);
-                  await cartProvider.fetchCart();
-                },
-          child: TextWidget(
-            text: _isInCart ? 'In cart' : 'Add to cart',
-            maxLines: 1,
-            color: Colors.white,
-            textSize: 20,
-          ),
-          style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all(Colors.grey),
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(12.0),
-                  bottomRight: Radius.circular(12.0),
+                  ],
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextWidget(
+                      text: product.model,
+                      color: Colors.white,
+                      textSize: 18,
+                      isTitle: true,
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      flex: 3,
+                      child: PriceWidget(
+                        price: product.price,
+                        textPrice: _quantityTextController.text,
+                      ),
+                    ),
+                    Flexible(
+                      child: Row(
+                        children: [
+                          Flexible(
+                            flex: 6,
+                            child: FittedBox(
+                              child: TextWidget(
+                                text: 'QTY',
+                                color: Colors.white,
+                                textSize: 20,
+                                isTitle: true,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Flexible(
+                            flex: 4,
+                            child: FittedBox(
+                              child: TextWidget(
+                                text: product.quantity.toString(),
+                                color: Colors.white,
+                                textSize: 18,
+                                isTitle: true,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.1),
+                  child: TextButton(
+                    onPressed: _isInCart
+                        ? null
+                        : () async {
+                            final User? user = authInstance.currentUser;
+
+                            if (user == null) {
+                              GlobalMethods.errorDialog(
+                                  subtitle: 'No user found, Please login first',
+                                  context: context);
+                              return;
+                            }
+                            await GlobalMethods.addToCart(
+                                productId: productModel.id,
+                                quantity:
+                                    int.parse(_quantityTextController.text),
+                                context: context);
+                            await cartProvider.fetchCart();
+                          },
+                    child: TextWidget(
+                      text: _isInCart ? 'In cart' : 'Add to cart',
+                      maxLines: 1,
+                      color: Colors.white,
+                      textSize: 20,
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.grey),
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(12.0),
+                            bottomRight: Radius.circular(12.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ),
-    ),
-  ],
-),
         ),
       ),
     );

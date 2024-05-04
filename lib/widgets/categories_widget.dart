@@ -29,7 +29,8 @@ class CategoriesWidget extends StatelessWidget {
             width: 2,
           ),
         ),
-        child: Column(children: [
+        child:
+            Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           // Container for the image
           Container(
             height: _screenWidth * 0.3,
