@@ -70,9 +70,7 @@ class _UserScreenState extends State<UserScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(
-                  height: 15,
-                ),
+                
                 RichText(
                   text: TextSpan(
                     text: 'Hi,  ',
@@ -113,7 +111,7 @@ class _UserScreenState extends State<UserScreen> {
                   color: Colors.grey,
                 ),
                 const SizedBox(
-                  height: 200,
+                  height: 30,
                 ),
                 _listTiles(
                   title: 'Address',
@@ -137,6 +135,24 @@ class _UserScreenState extends State<UserScreen> {
                     await _showLogoutDialog();
                   },
                   color: Colors.white,
+                ),
+                _listTiles(
+                  title:"" 
+                ),
+                _listTiles(
+                  title:"" 
+                ),
+                _listTiles(
+                  title:"" 
+                ),
+                _listTiles(
+                  title:"" 
+                ),
+                _listTiles(
+                  title:"" 
+                ),
+                _listTiles(
+                  title:"" 
                 ),
               ],
             ),
@@ -263,29 +279,4 @@ class _UserScreenState extends State<UserScreen> {
   }
 }
 
-Widget _listTiles({
-  required String title,
-  String? subtitle,
-  required IconData icon,
-  required Function onPressed,
-  required Color color,
-}) {
-  return ListTile(
-    title: TextWidget(
-      text: title,
-      color: color,
-      textSize: 22,
-      // isTitle: true,
-    ),
-    subtitle: TextWidget(
-      text: subtitle == null ? "" : subtitle,
-      color: color,
-      textSize: 18,
-    ),
-    leading: Icon(icon),
-    trailing: const Icon(IconlyLight.arrowRight2),
-    onTap: () {
-      onPressed();
-    },
-  );
-}
+
